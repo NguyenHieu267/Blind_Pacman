@@ -25,7 +25,7 @@ static void qrcode_build_bitmap() {
 	uint8_t qrcodeData[qrcode_getBufferSize(QRCODE_VERSION)];
 
 	memset(qrcode_bitmap, 0, sizeof(qrcode_bitmap));
-	qrcode_initText(&qrcode, qrcodeData, QRCODE_VERSION, 0, "https://github.com/the-ak-foundation/ak-base-kit-stm32l151");
+	qrcode_initText(&qrcode, qrcodeData, QRCODE_VERSION, 0, "https://github.com/NguyenHieu267/Blind_Pacman");
 	qrcode_bitmap_size = qrcode.size;
 
 	for (uint8_t y = 0; y < qrcode.size; y++) {

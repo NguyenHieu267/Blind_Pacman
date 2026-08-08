@@ -16,11 +16,12 @@ SOC_SRAM_BYTES = 16384	 # 16KB
 FLASH_BASE_ADDR_VAL = 0x08000000
 
 # Name of build target ex: ak-base-kit-stm32l151-application.bin
-NAME_MODULE = ak-base-kit-stm32l151-application
+NAME_MODULE = Pacman-application
 PROJECT = $(NAME_MODULE)
 
-GCC_PATH			= $(HOME)/Workspace/Tools/gcc-arm-none-eabi-10.3-2021.10
-PROGRAMER_PATH		= $(HOME)/workspace/tools/STM32CubeProgrammer/bin
+GCC_PATH			= $(HOME)/Workspace/tools/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-eabi
+GCC_VERSION   		= $(shell $(GCC_PATH)/bin/arm-none-eabi-gcc -dumpversion)
+#PROGRAMER_PATH		= $(HOME)/workspace/tools/STM32CubeProgrammer/bin
 OPENOCD_CFG_PATH	= /usr/local/share/openocd/scripts/board/stm32ldiscovery.cfg
 
 # App start address, that need sync with declare in linker file and interrupt vector table.
@@ -96,11 +97,11 @@ LIBFPU		= $(GCC_PATH)/arm-none-eabi/lib/thumb/v7-m/nofp/libg.a
 LIBRDPMON	= $(GCC_PATH)/arm-none-eabi/lib/thumb/v7-m/nofp/librdpmon.a
 LIBSTDCPP_NANO	= $(GCC_PATH)/arm-none-eabi/lib/thumb/v7-m/nofp/libstdc++_nano.a
 
-LIBGCC		= $(GCC_PATH)/lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a
-LIBGCOV		= $(GCC_PATH)/lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcov.a
+LIBGCC		= $(GCC_PATH)/lib/gcc/arm-none-eabi/$(GCC_VERSION)/thumb/v7-m/nofp/libgcc.a
+LIBGCOV		= $(GCC_PATH)/lib/gcc/arm-none-eabi/$(GCC_VERSION)/thumb/v7-m/nofp/libgcov.a
 
 LIB_PATH += -L$(GCC_PATH)/arm-none-eabi/lib/thumb/v7-m/nofp
-LIB_PATH += -L$(GCC_PATH)/lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp
+LIB_PATH += -L$(GCC_PATH)/lib/gcc/arm-none-eabi/$(GCC_VERSION)/thumb/v7-m/nofp
 
 # The command for calling the compiler.
 CC		=	$(GCC_PATH)/bin/arm-none-eabi-gcc

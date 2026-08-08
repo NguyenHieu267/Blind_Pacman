@@ -37,9 +37,9 @@ void view_scr_welcome() {
 	view_render.clear();
 	view_render.drawBitmap(	0, \
 		0, \
-		bitmap_dolphin, \
-		119, \
-		62, \
+		bitmap_pacman_open, \
+		8, \
+		8, \
 		WHITE);
 
 	view_render.setTextSize(1);

@@ -1,11 +1,15 @@
 include sources/app/screens/Makefile.mk
 
 CFLAGS		+= -I./sources/app
+CFLAGS		+= -I./sources/app/pacman
 CPPFLAGS	+= -I./sources/app
+CPPFLAGS	+= -I./sources/app/pacman
 
 VPATH += sources/app
+VPATH += sources/app/pacman
 
 # CPP source files
+SOURCES_CPP += sources/app/pacman/pm_game_core.cpp
 SOURCES_CPP += sources/app/task_system.cpp
 SOURCES_CPP += sources/app/app.cpp
 SOURCES_CPP += sources/app/app_data.cpp

@@ -4,6 +4,12 @@
 
 </div>
 
+# Blind Pacman - Game built on AK Embedded Base Kit
+
+![Video on Google Drive](https://drive.google.com/file/d/1PmCt0pu6e3WXLoVMZQ2ArR3NSxgRY-wT/view?usp=sharing) 
+
+<hr>
+
 # AK Embedded Base Kit - STM32L151
 
 [<img src="hardware/images/ak-foundation-logo.png" width="240"/>](https://github.com/the-ak-foundation)

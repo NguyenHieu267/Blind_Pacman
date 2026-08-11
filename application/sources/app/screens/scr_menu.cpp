@@ -26,20 +26,20 @@ static void view_scr_menu() {
     view_render.setCursor(30, 2); 
     view_render.print("PACMAN MENU");
     
-    // Draw 4 box 
+    // Draw playing box
     view_render.drawRect(7, 16, 24, 24, (menu_cursor==0)?WHITE:0); 
     view_render.drawBitmap(11, 20, icon_play, 16, 16, WHITE);
-
+    // Draw setting box
     view_render.drawRect(37, 16, 24, 24, (menu_cursor==1)?WHITE:0);
     view_render.drawBitmap(41, 20, setting_icon, 16, 16, WHITE);
-
+    // Draw ranking box
     view_render.drawRect(67, 16, 24, 24, (menu_cursor==2)?WHITE:0);
     view_render.drawBitmap(71, 20, ranking_icon, 16, 16, WHITE);
-
+    // Draw exit box
     view_render.drawRect(97, 16, 24, 24, (menu_cursor==3)?WHITE:0);
     view_render.drawBitmap(101, 20, exit_icon, 16, 16, WHITE);
 
-    // Chữ dưới đáy
+    // Words at bottom
     view_render.setCursor(32, 46);
     if(menu_cursor==0) view_render.print("PLAY GAME");
     if(menu_cursor==1) view_render.print("SETTINGS");

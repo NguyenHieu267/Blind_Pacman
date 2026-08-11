@@ -22,6 +22,7 @@
 
 #include "qrcode.h"
 #include "screens_bitmap.h"
+#include "scr_menu.h"
 
 // scr_idle
 extern view_dynamic_t dyn_view_idle;

@@ -74,6 +74,7 @@ void scr_welcome_handle(ak_msg_t *msg){
 
     case AC_DISPLAY_BUTON_MODE_PRESSED:{ 
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
+        SCREEN_TRAN(scr_menu_handle, &scr_menu);    // Move to scr_menu
     } break;
 
     default: break;

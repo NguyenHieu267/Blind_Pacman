@@ -23,6 +23,8 @@
 #include "qrcode.h"
 #include "screens_bitmap.h"
 
+#include "pm_game_pacman.h"
+
 // scr_idle
 extern view_dynamic_t dyn_view_idle;
 extern view_screen_t scr_idle;

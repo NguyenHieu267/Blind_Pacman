@@ -64,7 +64,7 @@ void scr_menu_handle(ak_msg_t *msg) {
     case AC_DISPLAY_BUTON_MODE_PRESSED: { 
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE);
         if (menu_cursor == 0) { 
-            // SCREEN_TRAN(scr_pacman_game_handle, &scr_pacman_game); 
+            SCREEN_TRAN(pm_game_screen_handle, &pm_game_screen); 
         } else if (menu_cursor == 1) { 
             SCREEN_TRAN(scr_settings_handle, &scr_settings); 
         } else if (menu_cursor == 2) { 

@@ -85,7 +85,7 @@ void scr_settings_handle(ak_msg_t *msg){
             set_difficulty = (set_difficulty < DIFF_HARD) ? (difficulty_t)(set_difficulty + 1) : DIFF_EASY;
             break;
 
-         case SETTING_SOUND:
+        case SETTING_SOUND:
             set_sound_on = !set_sound_on;
             break;
 

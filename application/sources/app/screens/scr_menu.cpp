@@ -2,7 +2,7 @@
 
 static uint8_t menu_cursor = 0; 
 
-static void view_scr_menu();
+void view_scr_menu();
 
 view_dynamic_t dyn_view_menu = {
 	{
@@ -19,7 +19,7 @@ view_screen_t scr_menu = {
 	.focus_item = 0,
 };
 
-static void view_scr_menu() {
+void view_scr_menu() {
     view_render.clear();
     view_render.setTextSize(1);
     view_render.setTextColor(WHITE);

@@ -22,7 +22,6 @@
 
 #include "qrcode.h"
 #include "screens_bitmap.h"
-#include "scr_menu.h"
 
 // scr_idle
 extern view_dynamic_t dyn_view_idle;
@@ -43,5 +42,15 @@ extern void scr_startup_handle(ak_msg_t* msg);
 extern view_dynamic_t dyn_view_welcome;
 extern view_screen_t scr_welcome;
 extern void scr_welcome_handle(ak_msg_t* msg);
+
+// scr_menu
+extern view_dynamic_t dyn_view_menu;
+extern view_screen_t scr_menu;
+extern void scr_menu_handle(ak_msg_t* msg);
+
+// scr_settings
+extern view_dynamic_t dyn_view_settings;
+extern view_screen_t scr_settings;
+extern void scr_settings_handle(ak_msg_t* msg);
 
 #endif //__SCREENS_H__

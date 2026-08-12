@@ -69,40 +69,41 @@ void scr_settings_handle(ak_msg_t *msg){
         break;
 
     case AC_DISPLAY_BUTON_DOWN_PRESSED:
-            timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
-            set_cursor = (setting_cursor_t)((set_cursor + 1) % SETTING_COUNT);
-            break;
+        timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
+        set_cursor = (setting_cursor_t)((set_cursor + 1) % SETTING_COUNT);
+        break;
 
     case AC_DISPLAY_BUTON_UP_PRESSED:
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
         set_cursor = (set_cursor == SETTING_DIFFICULTY) ? SETTING_BACK : (setting_cursor_t)(set_cursor - 1);
-            break;
+        break;
 
     case AC_DISPLAY_BUTON_MODE_PRESSED:
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
         switch (set_cursor){
-            case SETTING_DIFFICULTY:
-                set_difficulty = (set_difficulty < DIFF_HARD) ? (difficulty_t)(set_difficulty + 1) : DIFF_EASY;
-                break;
+        case SETTING_DIFFICULTY:
+            set_difficulty = (set_difficulty < DIFF_HARD) ? (difficulty_t)(set_difficulty + 1) : DIFF_EASY;
+            break;
 
-            case SETTING_SOUND:
-                set_sound_on = !set_sound_on;
-                break;
+         case SETTING_SOUND:
+            set_sound_on = !set_sound_on;
+            break;
 
-            case SETTING_LIMIT:
-                if (set_time_limit == 0)
-                    set_time_limit = 10;
-                else{
-                    set_time_limit += 10;
-                    if(set_time_limit > 150) set_time_limit = 0;
-                }
-                break;
+        case SETTING_LIMIT:
+            if(set_time_limit == 0)
+                set_time_limit = 10;
+            else{
+                set_time_limit += 10;
+                if(set_time_limit > 150) set_time_limit = 0;
+            }
+            break;
 
-            case SETTING_BACK:
-                SCREEN_TRAN(scr_menu_handle, &scr_menu);
-                break;
+        case SETTING_BACK:
+            SCREEN_TRAN(scr_menu_handle, &scr_menu);
+            break;
         default: break;
-        } break;
+        } 
+        break;
 
     default: break;
     }

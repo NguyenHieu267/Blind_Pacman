@@ -61,6 +61,19 @@ void scr_menu_handle(ak_msg_t *msg) {
         menu_cursor = (menu_cursor < 3) ? (menu_cursor+1) : 0;      // Move cursor to right
     } break;
 
+    case AC_DISPLAY_BUTON_MODE_PRESSED: { 
+        timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE);
+        if (menu_cursor == 0) { 
+            // SCREEN_TRAN(scr_pacman_game_handle, &scr_pacman_game); 
+        } else if (menu_cursor == 1) { 
+            SCREEN_TRAN(scr_settings_handle, &scr_settings); 
+        } else if (menu_cursor == 2) { 
+            // SCREEN_TRAN(scr_ranking_handle, &scr_ranking); 
+        } else if (menu_cursor == 3) { 
+            SCREEN_TRAN(scr_qrcode_handle, &scr_qrcode); 
+        }
+    } break;
+
     default: break;
     }
 }

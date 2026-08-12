@@ -2,7 +2,7 @@
 
 static uint8_t menu_cursor = 0; 
 
-void view_scr_menu();
+static void view_scr_menu();
 
 view_dynamic_t dyn_view_menu = {
 	{

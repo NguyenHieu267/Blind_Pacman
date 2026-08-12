@@ -5,7 +5,7 @@ uint8_t set_difficulty = 0;
 uint8_t set_sound_on   = 1; 
 uint8_t set_time_limit = 40;
 
-void view_scr_settings();
+static void view_scr_settings();
 
 view_dynamic_t dyn_view_settings = {
 	{

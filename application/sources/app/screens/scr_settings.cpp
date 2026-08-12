@@ -1,7 +1,7 @@
 #include "scr_settings.h"
 
-static uint8_t set_cursor = 0;
-uint8_t set_difficulty = 0; 
+static setting_cursor_t set_cursor = SETTING_DIFFICULTY;
+difficulty_t set_difficulty = DIFF_EASY;
 uint8_t set_sound_on   = 1; 
 uint8_t set_time_limit = 40;
 
@@ -28,60 +28,82 @@ void view_scr_settings(){
     view_render.setTextColor(WHITE);
     view_render.setCursor(20, 0); view_render.print("--- SETTINGS ---");
     
-    view_render.setCursor(0, 15); view_render.print(set_cursor==0 ? "> DIFF: " : "  DIFF: ");
-    if (set_difficulty == 0) view_render.print("EASY");
-    else if (set_difficulty == 1) view_render.print("MEDIUM");
-    else view_render.print("HARD");
+    view_render.setCursor(0, 15); 
+    view_render.print(set_cursor == SETTING_DIFFICULTY ? "> DIFF: " : "  DIFF: ");
+        switch(set_difficulty){
+            case DIFF_EASY:
+                view_render.print("EASY");
+            break;
 
-    view_render.setCursor(0, 27); view_render.print(set_cursor==1 ? "> SOUND: " : "  SOUND: ");
+            case DIFF_MEDIUM:
+                view_render.print("MEDIUM");
+            break;
+
+            case DIFF_HARD:
+                view_render.print("HARD");
+            break;
+        }
+
+    view_render.setCursor(0, 27); 
+    view_render.print(set_cursor == SETTING_SOUND ? "> SOUND: " : "  SOUND: ");
     view_render.print(set_sound_on ? "ON" : "OFF");
 
-    view_render.setCursor(0, 39); view_render.print(set_cursor==2 ? "> LIMIT: " : "  LIMIT: ");
-    if (set_time_limit == 0) view_render.print("NO");
-    else { view_render.print(set_time_limit); view_render.print("s"); }
+    view_render.setCursor(0, 39); 
+    view_render.print(set_cursor == SETTING_LIMIT ? "> LIMIT: " : "  LIMIT: ");
+        if(set_time_limit == 0) view_render.print("NO");
+        else{ 
+            view_render.print(set_time_limit); 
+            view_render.print("s"); }
 
-    view_render.setCursor(0, 51); view_render.print(set_cursor==3 ? "> BACK TO MENU" : "  BACK TO MENU");
+    view_render.setCursor(0, 51); view_render.print(set_cursor== SETTING_BACK ? "> BACK TO MENU" : "  BACK TO MENU");
 }
 
 void scr_settings_handle(ak_msg_t *msg){
     switch (msg->sig){
     case SCREEN_ENTRY:
-        timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT); // Auto sleep 20s
+        timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT); // Back to src_welcome after 20s
         break;
+
     case AC_DISPLAY_SHOW_IDLE:
         SCREEN_TRAN(scr_welcome_handle, &scr_welcome);
         break;
-    case AC_DISPLAY_BUTON_DOWN_PRESSED: // Trái / Đi Xuống
+
+    case AC_DISPLAY_BUTON_DOWN_PRESSED:
+            timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
+            set_cursor = (setting_cursor_t)((set_cursor + 1) % SETTING_COUNT);
+            break;
+
+    case AC_DISPLAY_BUTON_UP_PRESSED:
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
-        set_cursor = (set_cursor < 3) ? set_cursor + 1 : 0;
-        break;
-    case AC_DISPLAY_BUTON_UP_PRESSED: // Giữa / Đi Lên
-        timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
-        set_cursor = (set_cursor > 0) ? set_cursor - 1 : 3;
-        break;
+        set_cursor = (set_cursor == SETTING_DIFFICULTY) ? SETTING_BACK : (setting_cursor_t)(set_cursor - 1);
+            break;
+
     case AC_DISPLAY_BUTON_MODE_PRESSED:
-        timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE);
-        switch(set_cursor){
-            case 0:
-            set_difficulty = (set_difficulty < 2) ? set_difficulty + 1 : 0;
-            break;
+        timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
+        switch (set_cursor){
+            case SETTING_DIFFICULTY:
+                set_difficulty = (set_difficulty < DIFF_HARD) ? (difficulty_t)(set_difficulty + 1) : DIFF_EASY;
+                break;
 
-            case 1:
-            set_sound_on = !set_sound_on;
-            break;
+            case SETTING_SOUND:
+                set_sound_on = !set_sound_on;
+                break;
 
-            case 2: 
-            if(set_time_limit == 0) set_time_limit = 10;
-            else{ 
-                set_time_limit += 10; 
-                if (set_time_limit > 150) set_time_limit = 0;
-            }
-            break;
+            case SETTING_LIMIT:
+                if (set_time_limit == 0)
+                    set_time_limit = 10;
+                else{
+                    set_time_limit += 10;
+                    if(set_time_limit > 150) set_time_limit = 0;
+                }
+                break;
 
-            case 3:
-            SCREEN_TRAN(scr_menu_handle, &scr_menu);
-            break;
-        }
-            default: break;
+            case SETTING_BACK:
+                SCREEN_TRAN(scr_menu_handle, &scr_menu);
+                break;
+        default: break;
+        } break;
+
+    default: break;
     }
 }

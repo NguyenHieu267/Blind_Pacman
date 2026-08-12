@@ -3,4 +3,18 @@
 
 #include "screens.h"
 
+typedef enum {
+    DIFF_EASY,
+    DIFF_MEDIUM,
+    DIFF_HARD
+} difficulty_t;
+
+typedef enum {
+    SETTING_DIFFICULTY,
+    SETTING_SOUND,
+    SETTING_LIMIT,
+    SETTING_BACK,
+    SETTING_COUNT
+} setting_cursor_t;
+
 #endif //__SCR_SETTINGS_H__

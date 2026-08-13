@@ -19,22 +19,18 @@ view_screen_t pm_game_screen = {
 
 void view_pm_game_screen() {
     view_render.clear();
-    view_render.setTextSize(2);
-    view_render.setTextColor(WHITE);
-    view_render.setCursor(15, 25);
-    view_render.print("PLAYING...");
+    pm_maze_render();
 }
 
 void pm_game_screen_handle(ak_msg_t *msg) {
     switch (msg->sig) {
     case SCREEN_ENTRY:
-        // Gửi Event SETUP sang Core Game xử lý
+        pm_maze_init();
         task_post_pure_msg(AC_TASK_DISPLAY_ID, PM_GAME_SETUP);
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK, 120, TIMER_PERIODIC);
         break;
 
     case AC_DISPLAY_WELCOME_TEXT_ANIM_TICK: 
-        // Bắn Event TICK sang Core để cập nhật logic
         task_post_pure_msg(AC_TASK_DISPLAY_ID, PM_GAME_TICK);
         break;
 

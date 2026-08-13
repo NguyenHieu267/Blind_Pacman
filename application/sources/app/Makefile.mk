@@ -19,6 +19,7 @@ SOURCES_CPP += sources/app/shell.cpp
 
 SOURCES_CPP += sources/app/pacman/pm_game_screen.cpp
 SOURCES_CPP += sources/app/pacman/pm_game_eeprom.cpp
+SOURCES_CPP += sources/app/pacman/pm_game_maze.cpp
 
 SOURCES_CPP += sources/app/task_shell.cpp
 SOURCES_CPP += sources/app/task_life.cpp

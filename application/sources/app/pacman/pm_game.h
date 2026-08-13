@@ -8,6 +8,7 @@
 #include "message.h"
 #include "port.h"
 #include "timer.h"
+#include "eeprom.h"
 
 #include "app.h"
 #include "app_dbg.h"
@@ -29,6 +30,28 @@ struct Character {
     int x, y; 
     direction_t dir; 
 };
+
+// Define settings Diff
+typedef enum {
+    DIFF_EASY,
+    DIFF_MEDIUM,
+    DIFF_HARD
+} difficulty_t;
+
+// Define settings Sound
+typedef enum {
+    SOUND_OFF,
+    SOUND_ON
+} sound_state_t;
+
+extern difficulty_t set_difficulty;
+extern sound_state_t set_sound;
+extern uint8_t set_time_limit;
+extern uint32_t top_times[3];
+
+extern void pm_eeprom_save_settings(void);
+extern void pm_eeprom_update_ranking(uint32_t time);
+
 
 // pm_game_screen
 extern view_screen_t pm_game_screen;

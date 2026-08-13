@@ -1,9 +1,6 @@
 #include "scr_settings.h"
 
 static setting_cursor_t set_cursor = SETTING_DIFFICULTY;
-difficulty_t set_difficulty = DIFF_EASY;
-uint8_t set_sound_on   = 1; 
-uint8_t set_time_limit = 40;
 
 static void view_scr_settings();
 
@@ -46,7 +43,7 @@ void view_scr_settings(){
 
     view_render.setCursor(0, 27); 
     view_render.print(set_cursor == SETTING_SOUND ? "> SOUND: " : "  SOUND: ");
-    view_render.print(set_sound_on ? "ON" : "OFF");
+    view_render.print(set_sound == SOUND_ON ? "ON" : "OFF");
 
     view_render.setCursor(0, 39); 
     view_render.print(set_cursor == SETTING_LIMIT ? "> LIMIT: " : "  LIMIT: ");
@@ -86,7 +83,7 @@ void scr_settings_handle(ak_msg_t *msg){
             break;
 
         case SETTING_SOUND:
-            set_sound_on = !set_sound_on;
+            set_sound = (set_sound == SOUND_ON) ? SOUND_OFF : SOUND_ON;
             break;
 
         case SETTING_LIMIT:
@@ -99,6 +96,7 @@ void scr_settings_handle(ak_msg_t *msg){
             break;
 
         case SETTING_BACK:
+            pm_eeprom_save_settings();
             SCREEN_TRAN(scr_menu_handle, &scr_menu);
             break;
         default: break;

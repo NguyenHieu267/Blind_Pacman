@@ -26,7 +26,7 @@ extern sound_state_t set_sound;
 extern uint8_t set_time_limit;
 extern uint32_t top_times[3];
 
-extern void pm_eeprom_save_settings(void);
+extern void pm_eeprom_save_settings();
 extern void pm_eeprom_update_ranking(uint32_t time);
 
 // pm_game_screen

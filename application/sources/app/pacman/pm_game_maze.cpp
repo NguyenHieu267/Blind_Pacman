@@ -4,7 +4,7 @@
 #define MAZE_HEIGHT 32
 
 uint8_t game_maze[MAZE_HEIGHT][MAZE_WIDTH];
-int dots_left = 0;
+int dots_left = 0;          // Score that pacman need to eat to finish game
 
 //==============MAZE RULE==============
 /*
@@ -98,53 +98,4 @@ int pm_maze_eat_dot(int x, int y) {
         return 2; // Eat cherry
     }
     return 0; // Nothing
-}
-
-
-//==================================================
-// RENDER MAZE
-//==================================================
-
-void pm_maze_render(void)
-{
-    const int CELL_W = 8;
-    const int CELL_H = 2;
-
-    for (int y = 0; y < MAZE_HEIGHT; y++) {
-        for (int x = 0; x < MAZE_WIDTH; x++) {
-            int px = x * CELL_W;
-            int py = y * CELL_H;
-            switch (game_maze[y][x]) {
-            case MAZE_WALL:
-                for (int dy = 0; dy < CELL_H; dy++) {
-                    for (int dx = 0; dx < CELL_W; dx++) {
-                        view_render.drawPixel(
-                            px + dx,
-                            py + dy,
-                            WHITE
-                        );
-                    }
-                }
-                break;
-
-            case MAZE_DOT:
-                view_render.drawPixel(
-                    px + CELL_W / 2,
-                    py,
-                    WHITE
-                );
-                break;
-
-            case MAZE_CHERRY:
-                view_render.drawPixel(
-                    px + CELL_W / 2,
-                    py,
-                    WHITE
-                );
-                break;
-
-            default: break;
-            }
-        }
-    }
 }

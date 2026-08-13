@@ -6,8 +6,10 @@
 // Define direction
 typedef enum{ 
     DIR_IDLE, 
-    DIR_UP, DIR_DOWN, 
-    DIR_LEFT, DIR_RIGHT
+    DIR_UP, 
+    DIR_DOWN, 
+    DIR_LEFT, 
+    DIR_RIGHT
 } direction_t;
 
 // Character (Pacman, Ghost)
@@ -30,7 +32,7 @@ typedef enum {
 } sound_state_t;
 
 enum {
-    PM_GAME_SETUP = 0,
+    PM_GAME_SETUP,
     PM_GAME_TICK,
     PM_GAME_DIR_UP,
     PM_GAME_DIR_DOWN,

@@ -1,5 +1,5 @@
-#ifndef __PM_GAME_PACMAN_H__
-#define __PM_GAME_PACMAN_H__
+#ifndef __PM_GAME_H__
+#define __PM_GAME_H__
 
 #include <stdint.h>
 #include <stdio.h>
@@ -30,8 +30,8 @@ struct Character {
     direction_t dir; 
 };
 
-// pm_game_maze
+// pm_game_screen
 extern view_screen_t pm_game_screen;
 extern void pm_game_screen_handle(ak_msg_t* msg);
 
-#endif // __PM_GAME_PACMAN_H__
+#endif // __PM_GAME_H__

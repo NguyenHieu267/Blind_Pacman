@@ -1,7 +1,7 @@
 #ifndef __PM_GAME_SCREEN_H__
 #define __PM_GAME_SCREEN_H__
 
-#include "pm_game_pacman.h"
+#include "pm_game.h"
 enum {
     PM_GAME_SETUP = 0,
     PM_GAME_TICK,

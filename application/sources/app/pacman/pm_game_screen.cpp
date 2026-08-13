@@ -43,9 +43,8 @@ void view_pm_game_screen() {
         }
     }
 
-    // 4. Vẽ Ghost
     const unsigned char* g_bmp_normal = (anim_tick % 2) ? bitmap_ghost_2legs : bitmap_ghost_3legs;
-    const unsigned char* g_bmp = (frightened_timer > 0) ? bitmap_ghost_scared : g_bmp_normal; 
+    const unsigned char* g_bmp = (frightened_timer > 0) ? bitmap_ghost_scared : g_bmp_normal;
 
     if (abs(blinky.y - pacman.y) + abs(blinky.x - pacman.x) <= vision) view_render.drawBitmap(blinky.x * 8, (blinky.y * 8) - scroll_y, g_bmp, 8, 8, WHITE);
     if (abs(pinky.y - pacman.y) + abs(pinky.x - pacman.x) <= vision)  view_render.drawBitmap(pinky.x * 8,  (pinky.y * 8) - scroll_y, g_bmp, 8, 8, WHITE);
@@ -66,21 +65,16 @@ void view_pm_game_screen() {
 }
 
 void pm_game_screen_handle(ak_msg_t *msg) {
-    // Khởi tạo một thông điệp nội bộ để báo cho Lõi Game
     ak_msg_t core_msg;
 
     switch (msg->sig) {
     case SCREEN_ENTRY:
-        // Kích hoạt Event SETUP
         core_msg.sig = PM_GAME_SETUP;
         pm_game_core_handle(&core_msg);
-
-        // Chạy Timer nhịp tim của game (120ms)
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK, 120, TIMER_PERIODIC);
         break;
 
     case AC_DISPLAY_WELCOME_TEXT_ANIM_TICK: 
-        // Khi có tiếng tick timer -> Kích hoạt Event TICK cho Lõi
         core_msg.sig = PM_GAME_TICK;
         pm_game_core_handle(&core_msg);
         break;
@@ -97,17 +91,23 @@ void pm_game_screen_handle(ak_msg_t *msg) {
 
     case AC_DISPLAY_PACMAN_GAME_UPDATE:
         break;
-
+    
     case AC_DISPLAY_SHOW_WIN:
-        // Bắt Event từ Core báo WIN -> Chuyển màn hình
+        view_render.clear();
+        view_render.setTextSize(2);
+        view_render.setTextColor(WHITE);
+        view_render.setCursor(20, 20);
+        view_render.print("YOU WIN");
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
-        // SCREEN_TRAN(scr_game_win_handle, &scr_game_win); // Mở khóa khi ông tạo xong màn hình Win
         break;
 
     case AC_DISPLAY_SHOW_LOSE:
-        // Bắt Event từ Core báo LOSE -> Chuyển màn hình
+        view_render.clear();
+        view_render.setTextSize(2);
+        view_render.setTextColor(WHITE);
+        view_render.setCursor(18, 20);
+        view_render.print("YOU LOSE");
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
-        // SCREEN_TRAN(scr_game_over_handle, &scr_game_over); // Mở khóa khi ông tạo xong màn hình Lose
         break;
 
     case AC_DISPLAY_BUTON_MODE_PRESSED:

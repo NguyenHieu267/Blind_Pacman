@@ -19,6 +19,7 @@
 #include "pm_game_eeprom.h"
 #include "pm_game_def.h"
 #include "pm_game_maze.h"
+#include "pm_game_core.h"
 
 // pm_game_eeprom
 extern difficulty_t set_difficulty;

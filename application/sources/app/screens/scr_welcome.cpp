@@ -1,7 +1,7 @@
 #include "scr_welcome.h"
 
 static uint8_t welcome_pac_x = 0; 
-static uint16_t anim_tick = 0;
+static uint16_t welcome_anim_tick = 0;
 
 static void view_scr_welcome();
 
@@ -38,14 +38,14 @@ void view_scr_welcome(){
     }
 	view_render.drawBitmap(
         p1_x, 32, 
-        (anim_tick%2)?bitmap_pacman_open:bitmap_pacman_closed,      // Draw bitmap pacman open + closed
+        (welcome_anim_tick%2)?bitmap_pacman_open:bitmap_pacman_closed,      // Draw bitmap pacman open + closed
         8, 
         8, 
         WHITE
     );
     view_render.drawBitmap(
         g1_x, 32, 
-        (anim_tick%2)?bitmap_ghost_2legs:bitmap_ghost_3legs,        // Draw ghost running
+        (welcome_anim_tick%2)?bitmap_ghost_2legs:bitmap_ghost_3legs,        // Draw ghost running
         8, 
         8, 
         WHITE
@@ -66,7 +66,7 @@ void scr_welcome_handle(ak_msg_t *msg){
 	} break;
 
 	case AC_DISPLAY_WELCOME_TEXT_ANIM_TICK:{
-        anim_tick++;
+        welcome_anim_tick++;
         welcome_pac_x += 4;
         if (welcome_pac_x >= 144) welcome_pac_x -= 144; 
 

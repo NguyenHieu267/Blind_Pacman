@@ -51,7 +51,12 @@ void pm_game_core_handle(ak_msg_t* msg) {
             return; 
         }
 
-        // Báo cho màn hình vẽ lại
+        if (anim_tick % 4 == 0) {
+            pm_ghosts_update_move(frightened_timer > 0);
+        }
+
+        pm_ghost_check_collision(frightened_timer > 0);
+
         task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_PACMAN_GAME_UPDATE);
     } break;
 

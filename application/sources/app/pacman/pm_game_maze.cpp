@@ -1,11 +1,7 @@
 #include "pm_game_maze.h"
 
-#define MAZE_WIDTH  16
-#define MAZE_HEIGHT 32
-
 uint8_t game_maze[MAZE_HEIGHT][MAZE_WIDTH];
 int dots_left = 0;          // Score that pacman need to eat to finish game
-
 //==============MAZE RULE==============
 /*
 0: dot                  .

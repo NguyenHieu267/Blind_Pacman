@@ -3,6 +3,9 @@
 
 #include "pm_game.h"
 
+#define MAZE_WIDTH  16
+#define MAZE_HEIGHT 32
+
 enum {
     MAZE_DOT,
     MAZE_WALL,
@@ -11,7 +14,7 @@ enum {
     MAZE_CHERRY
 };
 
-extern uint8_t game_maze[32][16];
+extern uint8_t game_maze[MAZE_HEIGHT][MAZE_WIDTH];
 extern int dots_left;
 extern void pm_maze_init();
 extern bool pm_maze_is_wall_pacman(int x, int y);

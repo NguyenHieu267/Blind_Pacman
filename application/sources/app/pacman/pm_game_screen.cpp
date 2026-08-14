@@ -23,17 +23,17 @@ void view_pm_game_screen() {
     // 1. Tính toán cuộn camera theo tọa độ Y của Pacman
     int16_t scroll_y = (pacman.y * 8) - 28; 
     if (scroll_y < 0) scroll_y = 0;
-    if (scroll_y > (32 * 8 - 64)) scroll_y = (32 * 8 - 64);
+    if (scroll_y > (MAZE_HEIGHT * 8 - LCD_HEIGHT)) scroll_y = (MAZE_HEIGHT * 8 - LCD_HEIGHT);
 
     // 2. Tính toán tầm nhìn (Blind Mode)
     int vision = (set_difficulty == 0) ? 99 : (set_difficulty == 1 ? 5 : 2);
 
     // 3. Vẽ Bản Đồ
-    for (int r = 0; r < 32; r++) {
-        for (int c = 0; c < 16; c++) {
+    for (int r = 0; r < MAZE_HEIGHT; r++) {
+        for (int c = 0; c < MAZE_WIDTH; c++) {
             if (abs(r - pacman.y) + abs(c - pacman.x) <= vision) {
                 int dx = c * 8; int dy = (r * 8) - scroll_y;
-                if (dy >= -8 && dy <= 64) {
+                if (dy >= -8 && dy <= LCD_HEIGHT) {
                     if (game_maze[r][c] == 1) view_render.drawBitmap(dx, dy, bitmap_wall_8x8, 8, 8, WHITE);
                     else if (game_maze[r][c] == 0) view_render.fillRect(dx + 3, dy + 3, 2, 2, WHITE); 
                     else if (game_maze[r][c] == 3) view_render.drawLine(dx, dy + 4, dx + 7, dy + 4, WHITE);

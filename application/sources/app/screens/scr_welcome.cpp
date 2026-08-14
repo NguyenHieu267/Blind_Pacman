@@ -31,7 +31,7 @@ void view_scr_welcome(){
 	// Ghost chase Pacman
 	int p1_x = welcome_pac_x;			// Pacman 
     int g1_x = welcome_pac_x - 16;		// Ghost is 16 pixels far from Pacman 
-	for (int dx = 0; dx < 128; dx += 12){      // Draw bean
+	for (int dx = 0; dx < LCD_WIDTH; dx += 12){      // Draw bean
     	if(dx > p1_x + 6){
             view_render.fillRect(dx, 35, 2, 2, WHITE);
         }

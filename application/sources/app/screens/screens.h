@@ -65,4 +65,9 @@ extern view_dynamic_t dyn_view_game_win;
 extern view_screen_t scr_game_win;
 extern void scr_game_win_handle(ak_msg_t* msg);
 
+//scr_ranking
+extern view_dynamic_t dyn_view_ranking;
+extern view_screen_t scr_ranking;
+extern void scr_ranking_handle(ak_msg_t* msg);
+
 #endif //__SCREENS_H__

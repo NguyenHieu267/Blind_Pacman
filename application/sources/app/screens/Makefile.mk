@@ -13,3 +13,4 @@ SOURCES_CPP += sources/app/screens/scr_menu.cpp
 SOURCES_CPP += sources/app/screens/scr_settings.cpp
 SOURCES_CPP += sources/app/screens/scr_game_over.cpp
 SOURCES_CPP += sources/app/screens/scr_game_win.cpp
+SOURCES_CPP += sources/app/screens/scr_ranking.cpp

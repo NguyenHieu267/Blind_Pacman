@@ -68,7 +68,7 @@ void scr_menu_handle(ak_msg_t *msg) {
         } else if (menu_cursor == 1) { 
             SCREEN_TRAN(scr_settings_handle, &scr_settings); 
         } else if (menu_cursor == 2) { 
-            // SCREEN_TRAN(scr_ranking_handle, &scr_ranking); 
+            SCREEN_TRAN(scr_ranking_handle, &scr_ranking); 
         } else if (menu_cursor == 3) { 
             SCREEN_TRAN(scr_qrcode_handle, &scr_qrcode); 
         }

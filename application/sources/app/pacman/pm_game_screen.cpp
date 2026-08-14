@@ -93,21 +93,17 @@ void pm_game_screen_handle(ak_msg_t *msg) {
         break;
     
     case AC_DISPLAY_SHOW_WIN:
+        timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
         view_render.clear();
         view_render.setTextSize(2);
         view_render.setTextColor(WHITE);
         view_render.setCursor(20, 20);
         view_render.print("YOU WIN");
-        timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
         break;
 
     case AC_DISPLAY_SHOW_LOSE:
-        view_render.clear();
-        view_render.setTextSize(2);
-        view_render.setTextColor(WHITE);
-        view_render.setCursor(18, 20);
-        view_render.print("YOU LOSE");
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
+        SCREEN_TRAN(scr_game_over_handle, &scr_game_over);
         break;
 
     case AC_DISPLAY_BUTON_MODE_PRESSED:

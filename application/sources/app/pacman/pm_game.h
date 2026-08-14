@@ -20,6 +20,7 @@
 #include "pm_game_def.h"
 #include "pm_game_maze.h"
 #include "pm_game_core.h"
+#include "pm_game_pacman.h"
 
 // pm_game_eeprom
 extern difficulty_t set_difficulty;

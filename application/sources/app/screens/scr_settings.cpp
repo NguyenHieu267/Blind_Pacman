@@ -67,16 +67,19 @@ void scr_settings_handle(ak_msg_t *msg){
 
     case AC_DISPLAY_BUTON_DOWN_PRESSED:
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
+        BUZZER_PlaySound(BUZZER_SOUND_CLICK);
         set_cursor = (setting_cursor_t)((set_cursor + 1) % SETTING_COUNT);
         break;
 
     case AC_DISPLAY_BUTON_UP_PRESSED:
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
+        BUZZER_PlaySound(BUZZER_SOUND_CLICK);
         set_cursor = (set_cursor == SETTING_DIFFICULTY) ? SETTING_BACK : (setting_cursor_t)(set_cursor - 1);
         break;
 
     case AC_DISPLAY_BUTON_MODE_PRESSED:
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 20000, TIMER_ONE_SHOT);
+        BUZZER_PlaySound(BUZZER_SOUND_CLICK);
         switch (set_cursor){
         case SETTING_DIFFICULTY:
             set_difficulty = (set_difficulty < DIFF_HARD) ? (difficulty_t)(set_difficulty + 1) : DIFF_EASY;

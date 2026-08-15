@@ -128,11 +128,13 @@ void pm_game_screen_handle(ak_msg_t *msg) {
     
     case AC_DISPLAY_SHOW_WIN:
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
+        BUZZER_PlaySound(BUZZER_SOUND_HIGHSCORE);
         SCREEN_TRAN(scr_game_win_handle, &scr_game_win);
         break;
 
     case AC_DISPLAY_SHOW_LOSE:
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
+        BUZZER_PlaySound(BUZZER_SOUND_LOWSCORE);
         SCREEN_TRAN(scr_game_over_handle, &scr_game_over);
         break;
 

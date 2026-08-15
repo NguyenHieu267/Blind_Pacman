@@ -42,7 +42,11 @@ void pm_game_core_handle(ak_msg_t* msg) {
         // Xử lý Pacman
         pm_pacman_update_move();
         int eat_status = pm_maze_eat_dot(pacman.x, pacman.y);
-        if (eat_status == 2) frightened_timer = 60; // Ăn cherry
+        if (eat_status == 2) // Eat cherry
+        {
+            BUZZER_PlaySound(BUZZER_SOUND_BANG);
+            frightened_timer = 60; 
+        }
 
         // Kiểm tra Win
         if (dots_left == 0) { 

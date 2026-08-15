@@ -62,6 +62,7 @@ void scr_welcome_handle(ak_msg_t *msg){
 	case SCREEN_ENTRY:{
 		APP_DBG_SIG("SCREEN_ENTRY\n");
 		welcome_pac_x = 0;
+        BUZZER_PlaySound(BUZZER_SOUND_TONE_7);
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK, 120, TIMER_PERIODIC);
 	} break;
 
@@ -73,6 +74,7 @@ void scr_welcome_handle(ak_msg_t *msg){
     } break;
 
     case AC_DISPLAY_BUTON_MODE_PRESSED:{ 
+        BUZZER_PlaySound(BUZZER_SOUND_CLICK);
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_WELCOME_TEXT_ANIM_TICK);
         SCREEN_TRAN(scr_menu_handle, &scr_menu);    // Move to scr_menu
     } break;

@@ -86,7 +86,9 @@ int pm_maze_eat_dot(int x, int y) {
     if (game_maze[y][x] == MAZE_DOT){
         game_maze[y][x] = MAZE_EMPTY; 
         dots_left--; 
-        BUZZER_PlaySound(BUZZER_SOUND_TONE_1);
+        if (set_sound == SOUND_ON) {
+            BUZZER_PlaySound(BUZZER_SOUND_TONE_1);
+        }
         return 1; // Eat dot
     } 
     else if (game_maze[y][x] == MAZE_CHERRY) {

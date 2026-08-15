@@ -43,8 +43,10 @@ void pm_game_core_handle(ak_msg_t* msg) {
         pm_pacman_update_move();
         int eat_status = pm_maze_eat_dot(pacman.x, pacman.y);
         if (eat_status == 2) // Eat cherry
-        {
-            BUZZER_PlaySound(BUZZER_SOUND_BANG);
+        {   
+            if (set_sound == SOUND_ON) {
+                BUZZER_PlaySound(BUZZER_SOUND_BANG);
+            }
             frightened_timer = 60; 
         }
 

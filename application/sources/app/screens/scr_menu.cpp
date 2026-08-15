@@ -53,18 +53,24 @@ void scr_menu_handle(ak_msg_t *msg) {
         timer_set(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE, 120, TIMER_PERIODIC); // Tick count for 20s to back to scr_welcome
     } break;
 
-    case AC_DISPLAY_BUTON_DOWN_PRESSED: { 
-        BUZZER_PlaySound(BUZZER_SOUND_CLICK);
+    case AC_DISPLAY_BUTON_DOWN_PRESSED: {
+        if (set_sound == SOUND_ON) { 
+            BUZZER_PlaySound(BUZZER_SOUND_CLICK);
+        }
         menu_cursor = (menu_cursor > 0) ? (menu_cursor-1) : 3;      // Move cursor to left
     } break;
 
     case AC_DISPLAY_BUTON_UP_PRESSED: { 
-        BUZZER_PlaySound(BUZZER_SOUND_CLICK);
+        if (set_sound == SOUND_ON) {
+            BUZZER_PlaySound(BUZZER_SOUND_CLICK);
+        }
         menu_cursor = (menu_cursor < 3) ? (menu_cursor+1) : 0;      // Move cursor to right
     } break;
 
     case AC_DISPLAY_BUTON_MODE_PRESSED: { 
-        BUZZER_PlaySound(BUZZER_SOUND_CLICK);
+        if (set_sound == SOUND_ON) {
+            BUZZER_PlaySound(BUZZER_SOUND_CLICK);
+        }
         timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_SHOW_IDLE);
         if (menu_cursor == 0) { 
             SCREEN_TRAN(pm_game_screen_handle, &pm_game_screen); 

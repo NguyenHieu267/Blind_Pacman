@@ -35,4 +35,13 @@ extern void pm_eeprom_update_ranking(uint32_t time);
 extern view_screen_t pm_game_screen;
 extern void pm_game_screen_handle(ak_msg_t* msg);
 
+// pm_game_core
+extern struct Character pacman, blinky, pinky, inky, clyde;
+extern int frightened_timer;
+extern int dots_left;
+extern int game_time_left;
+extern int time_played;
+extern uint16_t anim_tick;
+
+extern void pm_game_core_handle(ak_msg_t* msg);
 #endif // __PM_GAME_H__

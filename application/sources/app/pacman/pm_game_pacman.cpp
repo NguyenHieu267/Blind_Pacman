@@ -5,7 +5,6 @@ void pm_pacman_init() {
 }
 
 void pm_pacman_toggle_horizontal() {
-    
     if (pacman.dir == DIR_LEFT) {
         pacman.dir = DIR_RIGHT;
     } 
@@ -13,10 +12,10 @@ void pm_pacman_toggle_horizontal() {
         pacman.dir = DIR_LEFT;
     } 
     else {
-        if (!pm_maze_is_wall_pacman(pacman.x - 1, pacman.y)) {
+        if (!pm_maze_is_wall_pacman(pacman.x - 1, pacman.y)) {      // Check if Left pacman not wall
             pacman.dir = DIR_LEFT;
         } 
-        else if (!pm_maze_is_wall_pacman(pacman.x + 1, pacman.y)) {
+        else if (!pm_maze_is_wall_pacman(pacman.x + 1, pacman.y)) { // Check if Right pacman not wall
             pacman.dir = DIR_RIGHT;
         }
     }
@@ -30,20 +29,33 @@ void pm_pacman_toggle_vertical() {
         pacman.dir = DIR_UP;
     } 
     else {
-        // Ưu tiên Lên trước, nếu kẹt tường mới check Xuống
-        if (!pm_maze_is_wall_pacman(pacman.x, pacman.y - 1)) {
+        if (!pm_maze_is_wall_pacman(pacman.x, pacman.y - 1)) {      // Check if Up pacman not wall
             pacman.dir = DIR_UP;
         } 
-        else if (!pm_maze_is_wall_pacman(pacman.x, pacman.y + 1)) {
+        else if (!pm_maze_is_wall_pacman(pacman.x, pacman.y + 1)) { // Check if Down pacman not wall
             pacman.dir = DIR_DOWN;
         }
     }
 }
 
 void pm_pacman_update_move() {
-    if (pacman.dir == DIR_UP && !pm_maze_is_wall_pacman(pacman.x, pacman.y - 1)) pacman.y--;
-    else if (pacman.dir == DIR_DOWN && !pm_maze_is_wall_pacman(pacman.x, pacman.y + 1)) pacman.y++;
-    else if (pacman.dir == DIR_LEFT && !pm_maze_is_wall_pacman(pacman.x - 1, pacman.y)) pacman.x--;
-    else if (pacman.dir == DIR_RIGHT && !pm_maze_is_wall_pacman(pacman.x + 1, pacman.y)) pacman.x++;
-    else pacman.dir = DIR_IDLE; 
+    if (pacman.dir == DIR_UP &&
+        !pm_maze_is_wall_pacman(pacman.x, pacman.y - 1)) {
+        pacman.y--;
+    }
+    else if (pacman.dir == DIR_DOWN &&
+             !pm_maze_is_wall_pacman(pacman.x, pacman.y + 1)) {
+        pacman.y++;
+    }
+    else if (pacman.dir == DIR_LEFT &&
+             !pm_maze_is_wall_pacman(pacman.x - 1, pacman.y)) {
+        pacman.x--;
+    }
+    else if (pacman.dir == DIR_RIGHT &&
+             !pm_maze_is_wall_pacman(pacman.x + 1, pacman.y)) {
+        pacman.x++;
+    }
+    else {
+        pacman.dir = DIR_IDLE;
+    }
 }

@@ -46,7 +46,7 @@ static const uint8_t game_maze_base[MAZE_HEIGHT][MAZE_WIDTH] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}  // ################
 };
 
-void pm_maze_init() {
+void pm_maze_init() {           // Reset maze after playing game 
     dots_left = 0;
     for(int r=0; r<MAZE_HEIGHT; r++) {
         for(int c=0; c<MAZE_WIDTH; c++) {

@@ -34,10 +34,23 @@ static void draw_maze_layer(int16_t scroll_y, int vision) {
                 int dy = (r * PIXELS_PER_BLOCK) - scroll_y;
                 
                 if (dy >= -PIXELS_PER_BLOCK && dy <= LCD_HEIGHT) {
-                    if (game_maze[r][c] == MAZE_WALL) view_render.drawBitmap(dx, dy, bitmap_wall_8x8, PIXELS_PER_BLOCK, PIXELS_PER_BLOCK, WHITE);
-                    else if (game_maze[r][c] == MAZE_DOT) view_render.fillRect(dx + 3, dy + 3, 2, 2, WHITE); 
-                    else if (game_maze[r][c] == MAZE_GHOST) view_render.drawLine(dx, dy + 4, dx + 7, dy + 4, WHITE);
-                    else if (game_maze[r][c] == MAZE_CHERRY) view_render.drawBitmap(dx, dy, bitmap_cherry, PIXELS_PER_BLOCK, PIXELS_PER_BLOCK, WHITE);
+                    switch (game_maze[r][c]) {
+                        case MAZE_WALL:
+                            view_render.drawBitmap(dx, dy, bitmap_wall_8x8, PIXELS_PER_BLOCK, PIXELS_PER_BLOCK, WHITE);
+                            break;
+                        
+                        case MAZE_DOT:
+                            view_render.fillRect(dx + 3, dy + 3, 2, 2, WHITE);
+                            break;
+
+                        case MAZE_GHOST:
+                            view_render.drawLine(dx, dy + 4, dx + 7, dy + 4, WHITE);
+                            break;
+
+                        case MAZE_CHERRY:
+                            view_render.drawBitmap(dx, dy, bitmap_cherry, PIXELS_PER_BLOCK, PIXELS_PER_BLOCK, WHITE);
+                            break;
+                    }
                 }
             }
         }

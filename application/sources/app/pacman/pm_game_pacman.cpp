@@ -1,5 +1,4 @@
 #include "pm_game_pacman.h"
-#include "pm_game_maze.h"
 
 void pm_pacman_init() {
     pacman = {8, 21, DIR_IDLE};

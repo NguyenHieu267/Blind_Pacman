@@ -1,5 +1,7 @@
 #include "buzzer_music.h"
 
+#define PACMAN_SOUND_DURATION 7
+
 const Tone_TypeDef tones_click[] = {
 	{2000, 2},
 	{   0, 0}
@@ -272,64 +274,64 @@ const Tone_TypeDef sTone6[] = {
 
 const Tone_TypeDef sTone7[] = {
 	/* 1-10 */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
 	/* 11-20 */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
 	/* 21-30 */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
 	/* 31-40 */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
 	/* 41-50 */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
 	/* 51-54 */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
-	{850, 4},	/*  850Hz,  40ms */
-	{680, 4},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
+	{850, PACMAN_SOUND_DURATION},	/*  850Hz,  40ms */
+	{680, PACMAN_SOUND_DURATION},	/*  680Hz,  40ms */
 	{0, 0}		/* end */
 };

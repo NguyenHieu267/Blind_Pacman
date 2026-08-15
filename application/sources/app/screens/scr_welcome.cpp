@@ -69,8 +69,10 @@ void scr_welcome_handle(ak_msg_t *msg){
 	case AC_DISPLAY_WELCOME_TEXT_ANIM_TICK:{
         welcome_anim_tick++;
         welcome_pac_x += 4;
-        if (welcome_pac_x >= 144) welcome_pac_x -= 144; 
-
+        if (welcome_pac_x >= 144) {
+            welcome_pac_x -= 144;
+            BUZZER_PlaySound(BUZZER_SOUND_TONE_7);
+        }
     } break;
 
     case AC_DISPLAY_BUTON_MODE_PRESSED:{ 

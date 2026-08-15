@@ -1,67 +1,91 @@
 #include "pm_game_screen.h"
 
+#define PIXELS_PER_BLOCK 8         // 8 pixels -> 1 block
+#define CAMERA_OFFSET_Y  28        // Value to center Pacman on the lcd (Scrolling to pacman)
+
 static void view_pm_game_screen();
 
 view_dynamic_t dyn_view_pm_game_screen = {
-	{
-		.item_type = ITEM_TYPE_DYNAMIC,
-	},
-	view_pm_game_screen
+    {
+        .item_type = ITEM_TYPE_DYNAMIC,
+    },
+    view_pm_game_screen
 };
 
 view_screen_t pm_game_screen = {
-	&dyn_view_pm_game_screen,
-	ITEM_NULL,
-	ITEM_NULL,
+    &dyn_view_pm_game_screen,
+    ITEM_NULL,
+    ITEM_NULL,
 
-	.focus_item = 0,
+    .focus_item = 0,
 };
 
-void view_pm_game_screen() {
-    view_render.clear(); // Xóa nền đen
+static int get_vision_radius() {            // Handle Settings DIFF
+    if (set_difficulty == DIFF_EASY) return 99;
+    if (set_difficulty == DIFF_MEDIUM) return 5;
+    return 2; // DIFF_HARD
+}
 
-    // 1. Tính toán cuộn camera theo tọa độ Y của Pacman
-    int16_t scroll_y = (pacman.y * 8) - 28; 
-    if (scroll_y < 0) scroll_y = 0;
-    if (scroll_y > (MAZE_HEIGHT * 8 - LCD_HEIGHT)) scroll_y = (MAZE_HEIGHT * 8 - LCD_HEIGHT);
-
-    // 2. Tính toán tầm nhìn (Blind Mode)
-    int vision = (set_difficulty == 0) ? 99 : (set_difficulty == 1 ? 5 : 2);
-
-    // 3. Vẽ Bản Đồ
+static void draw_maze_layer(int16_t scroll_y, int vision) {
     for (int r = 0; r < MAZE_HEIGHT; r++) {
         for (int c = 0; c < MAZE_WIDTH; c++) {
             if (abs(r - pacman.y) + abs(c - pacman.x) <= vision) {
-                int dx = c * 8; int dy = (r * 8) - scroll_y;
-                if (dy >= -8 && dy <= LCD_HEIGHT) {
-                    if (game_maze[r][c] == 1) view_render.drawBitmap(dx, dy, bitmap_wall_8x8, 8, 8, WHITE);
-                    else if (game_maze[r][c] == 0) view_render.fillRect(dx + 3, dy + 3, 2, 2, WHITE); 
-                    else if (game_maze[r][c] == 3) view_render.drawLine(dx, dy + 4, dx + 7, dy + 4, WHITE);
-                    else if (game_maze[r][c] == 4) view_render.drawBitmap(dx, dy, bitmap_cherry, 8, 8, WHITE);
+                int dx = c * PIXELS_PER_BLOCK; 
+                int dy = (r * PIXELS_PER_BLOCK) - scroll_y;
+                
+                if (dy >= -PIXELS_PER_BLOCK && dy <= LCD_HEIGHT) {
+                    if (game_maze[r][c] == MAZE_WALL) view_render.drawBitmap(dx, dy, bitmap_wall_8x8, PIXELS_PER_BLOCK, PIXELS_PER_BLOCK, WHITE);
+                    else if (game_maze[r][c] == MAZE_DOT) view_render.fillRect(dx + 3, dy + 3, 2, 2, WHITE); 
+                    else if (game_maze[r][c] == MAZE_GHOST) view_render.drawLine(dx, dy + 4, dx + 7, dy + 4, WHITE);
+                    else if (game_maze[r][c] == MAZE_CHERRY) view_render.drawBitmap(dx, dy, bitmap_cherry, PIXELS_PER_BLOCK, PIXELS_PER_BLOCK, WHITE);
                 }
             }
         }
     }
+}
 
+static void draw_ghost(Character g, int16_t scroll_y, int vision, const unsigned char* bitmap) {
+    if (abs(g.y - pacman.y) + abs(g.x - pacman.x) <= vision) {
+        view_render.drawBitmap(g.x * PIXELS_PER_BLOCK, g.y * PIXELS_PER_BLOCK - scroll_y, bitmap, PIXELS_PER_BLOCK, PIXELS_PER_BLOCK, WHITE);
+    }
+}
+
+static void draw_characters_layer(int16_t scroll_y, int vision) {
     const unsigned char* g_bmp_normal = (anim_tick % 2) ? bitmap_ghost_2legs : bitmap_ghost_3legs;
     const unsigned char* g_bmp = (frightened_timer > 0) ? bitmap_ghost_scared : g_bmp_normal;
 
-    if (abs(blinky.y - pacman.y) + abs(blinky.x - pacman.x) <= vision) view_render.drawBitmap(blinky.x * 8, (blinky.y * 8) - scroll_y, g_bmp, 8, 8, WHITE);
-    if (abs(pinky.y - pacman.y) + abs(pinky.x - pacman.x) <= vision)  view_render.drawBitmap(pinky.x * 8,  (pinky.y * 8) - scroll_y, g_bmp, 8, 8, WHITE);
-    if (abs(inky.y - pacman.y) + abs(inky.x - pacman.x) <= vision)   view_render.drawBitmap(inky.x * 8,   (inky.y * 8) - scroll_y, g_bmp, 8, 8, WHITE);
-    if (abs(clyde.y - pacman.y) + abs(clyde.x - pacman.x) <= vision)  view_render.drawBitmap(clyde.x * 8,  (clyde.y * 8) - scroll_y, g_bmp, 8, 8, WHITE);
+    draw_ghost(blinky, scroll_y, vision, g_bmp);
+    draw_ghost(pinky, scroll_y, vision, g_bmp);
+    draw_ghost(inky, scroll_y, vision, g_bmp);
+    draw_ghost(clyde, scroll_y, vision, g_bmp);
 
-    // 5. Vẽ Pacman
-    view_render.drawBitmap(pacman.x * 8, (pacman.y * 8) - scroll_y, (anim_tick%2)?bitmap_pacman_open:bitmap_pacman_closed, 8, 8, WHITE);
+    const unsigned char* p_bmp = (anim_tick % 2) ? bitmap_pacman_open : bitmap_pacman_closed;
+    view_render.drawBitmap(pacman.x * PIXELS_PER_BLOCK, (pacman.y * PIXELS_PER_BLOCK) - scroll_y, p_bmp, PIXELS_PER_BLOCK, PIXELS_PER_BLOCK, WHITE);
+}
 
-    // 6. Vẽ thời gian
+static void draw_ui_layer() {
     if (set_time_limit > 0) {
         view_render.fillRect(2, 2, 24, 10, 0); 
         view_render.setTextSize(1);
         view_render.setTextColor(WHITE);
         view_render.setCursor(4, 3);
-        view_render.print(game_time_left); view_render.print("s");
+        view_render.print(game_time_left); 
+        view_render.print("s");
     }
+}
+
+void view_pm_game_screen() {
+    view_render.clear(); 
+
+    int16_t scroll_y = (pacman.y * PIXELS_PER_BLOCK) - CAMERA_OFFSET_Y; 
+    if (scroll_y < 0) scroll_y = 0;
+    if (scroll_y > (MAZE_HEIGHT * PIXELS_PER_BLOCK - LCD_HEIGHT)) scroll_y = (MAZE_HEIGHT * PIXELS_PER_BLOCK - LCD_HEIGHT);
+
+    int vision = get_vision_radius();
+
+    draw_maze_layer(scroll_y, vision);
+    draw_characters_layer(scroll_y, vision);
+    draw_ui_layer();
 }
 
 void pm_game_screen_handle(ak_msg_t *msg) {

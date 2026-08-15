@@ -38,4 +38,11 @@ enum {
     PM_GAME_BUTTON_DOWN
 };
 
+struct Move { 
+    direction_t dir; 
+    int dx; 
+    int dy; 
+    direction_t opp; 
+};
+
 #endif //__PM_GAME_DEF_H__

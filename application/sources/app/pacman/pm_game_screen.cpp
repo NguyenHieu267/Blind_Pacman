@@ -117,16 +117,13 @@ void pm_game_screen_handle(ak_msg_t *msg) {
         break;
 
     case AC_DISPLAY_BUTON_DOWN_PRESSED: 
-        core_msg.sig = PM_GAME_DIR_LEFT; 
+        core_msg.sig = PM_GAME_BUTTON_DOWN; 
         pm_game_core_handle(&core_msg);
         break;
 
     case AC_DISPLAY_BUTON_UP_PRESSED: 
-        core_msg.sig = PM_GAME_DIR_UP; 
+        core_msg.sig = PM_GAME_BUTTON_UP; 
         pm_game_core_handle(&core_msg);
-        break;
-
-    case AC_DISPLAY_PACMAN_GAME_UPDATE:
         break;
     
     case AC_DISPLAY_SHOW_WIN:

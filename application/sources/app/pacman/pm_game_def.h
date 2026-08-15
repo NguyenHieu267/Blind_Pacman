@@ -34,10 +34,8 @@ typedef enum {
 enum {
     PM_GAME_SETUP,
     PM_GAME_TICK,
-    PM_GAME_DIR_UP,
-    PM_GAME_DIR_DOWN,
-    PM_GAME_DIR_LEFT,
-    PM_GAME_DIR_RIGHT
+    PM_GAME_BUTTON_UP,
+    PM_GAME_BUTTON_DOWN
 };
 
 #endif //__PM_GAME_DEF_H__

@@ -4,8 +4,4 @@
 
 #include "pm_game.h"
 
-extern void pm_pacman_init();
-extern void pm_pacman_change_dir(direction_t new_dir);
-extern void pm_pacman_update_move();
-
 #endif

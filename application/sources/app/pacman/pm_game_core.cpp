@@ -60,20 +60,12 @@ void pm_game_core_handle(ak_msg_t* msg) {
         task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_PACMAN_GAME_UPDATE);
     } break;
 
-    case PM_GAME_DIR_UP: {
-        pm_pacman_change_dir(DIR_UP);
+    case PM_GAME_BUTTON_DOWN: { 
+        pm_pacman_toggle_horizontal();
     } break;
 
-    case PM_GAME_DIR_DOWN: {
-        pm_pacman_change_dir(DIR_DOWN);
-    } break;
-
-    case PM_GAME_DIR_LEFT: {
-        pm_pacman_change_dir(DIR_LEFT);
-    } break;
-
-    case PM_GAME_DIR_RIGHT: {
-        pm_pacman_change_dir(DIR_RIGHT);
+    case PM_GAME_BUTTON_UP: {
+        pm_pacman_toggle_vertical();
     } break;
 
     default:

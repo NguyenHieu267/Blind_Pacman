@@ -21,6 +21,7 @@
 #include "pm_game_maze.h"
 #include "pm_game_core.h"
 #include "pm_game_pacman.h"
+#include "pm_game_ghost.h"
 
 // pm_game_eeprom
 extern difficulty_t set_difficulty;
@@ -50,4 +51,11 @@ extern void pm_game_core_handle(ak_msg_t* msg);
 extern void pm_ghost_init();
 extern void pm_ghosts_update_move(bool is_frightened);
 extern void pm_ghost_check_collision(bool is_frightened);
+
+// pm_game_pacman
+extern void pm_pacman_init();
+extern void pm_pacman_toggle_horizontal(); 
+extern void pm_pacman_toggle_vertical(); 
+extern void pm_pacman_update_move();
+
 #endif // __PM_GAME_H__

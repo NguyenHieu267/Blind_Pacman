@@ -1,59 +1,141 @@
 <div align="center">
-  
-![Repo Traffic](https://komarev.com/ghpvc/?username=ak-base-kit-stm32l151&label=Repo+Traffic&color=blue&style=flat-square)
+
+![Repo Traffic](https://komarev.com/ghpvc/?username=NguyenHieu267&label=Repo+Traffic&color=blue&style=flat-square)
 
 </div>
 
-# AK Embedded Base Kit - STM32L151
+# Blind Pacman - Game built on AK Embedded Base Kit
 
-[<img src="hardware/images/ak-foundation-logo.png" width="240"/>](https://github.com/the-ak-foundation)
+**Blind Pacman** is a limited-vision Pacman game developed for the STM32L151-based AK Embedded Base Kit. The game runs on the kit's 1.54-inch monochrome OLED and is controlled with only three physical buttons.
 
-This kit would not have been possible without the help of [EPCB](https://epcb.vn/pages/frontpage).
+<hr>
 
-AK Embedded Base Kit, utilizing STM32L151 MCU, is an evaluation kit for advanced embedded software learners.
+## Gameplay Demo
 
-## Features
+<div align="center">
+  <video src="hardware/images/blind_pacman_demo.mp4" controls width="480"></video>
+  <br>
+  <a href="hardware/images/blind_pacman_demo.mp4">Blind Pacman Demo</a>
+</div>
 
-- This kit integrates 1.54" Oled LCD, 3 push buttons, and 1 buzzer, which would be sufficient to create a small video game with an event driven paradigm.
-- It also includes RS485, Qwiic Connect System, and Grove Ecosystems, suitable for prototyping other practical applications in embedded systems.
+## Documentation
 
-[<img src="hardware/images/ak-embedded-base-kit-version-3.jpg" width="480"/>](<https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu>)
+| File | Description |
+|---|---|
+| [README.md](README.md) | Project overview, hardware information, gameplay rules, controls, and game logic. |
+| [application/sources/app/pacman](application/sources/app/pacman) | Pacman game core, maze, player, ghost AI, rendering, settings, and EEPROM logic. |
+| [application/sources/app/screens](application/sources/app/screens) | Welcome, menu, settings, ranking, victory, game-over, and QR screens. |
+| [hardware/schematic/schematic-ak-embedded-base-kit-version-3.pdf](hardware/schematic/schematic-ak-embedded-base-kit-version-3.pdf) | AK Embedded Base Kit v3.0 schematic. |
 
-## Purpose
+## Introduction
 
-Students who are enrolled in the AK foundation's embedded training program will make use of this evaluation kit to develop a small unique video game that will be able to run smoothly as well as closely follow an event driven paradigm in embedded systems programming. This repository also contains all the code which would form the AK framework that students can use to facilitate their development process.
+Blind Pacman is a compact reinterpretation of the classic maze game. Instead of always showing the entire maze, the game can hide everything outside Pacman's vision radius. This turns navigation into a memory challenge, especially on the harder difficulty levels.
 
-We also hope that this repository will also be useful for those are on the look out for a well-built kit to practice their embedded systems programming skills.
+The project applies core embedded-software concepts on real hardware:
 
+- **Event-driven design:** button events, periodic timers, task messages, and screen transitions coordinate the game.
+- **State management:** gameplay, menus, settings, rankings, victory, and game-over screens are handled as separate states.
+- **Persistent storage:** settings and the three fastest completion times are saved to EEPROM.
+- **Real-time rendering:** a 16 × 32-tile maze is scrolled vertically and rendered on a 128 × 64 monochrome OLED.
+- **Game AI:** four ghosts use different targeting strategies while navigating the maze.
 
-[<img src="hardware/images/ak-mcu-kit-hw2-github-1280x640px.png" width="960"/>](<https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu>)
+### I. Hardware
 
-## Memory map
+<table align="center">
+  <tr>
+    <td align="center"><img src="hardware/images/ak-embedded-base-kit-version-3.jpg" alt="AK Embedded Base Kit - STM32L151 - v3.0" width="480"/></td>
+  </tr>
+</table>
+<p align="center"><strong><em>Figure 1:</em></strong> AK Embedded Base Kit - STM32L151</p>
 
-AK base kit uses the following memory map to run its application code
+The [AK Embedded Base Kit](https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu) is an evaluation platform for learning embedded software development and event-driven system design.
 
-- [ 0x08000000 ] : **Boot** [[ak-base-kit-stm32l151-boot.bin]](https://github.com/ak-embedded-software/ak-base-kit-stm32l151/blob/main/hardware/bin/ak-base-kit-stm32l151-boot.bin)
-- [ 0x08002000 ] : **BSF** [ Memory for data sharing between Boot and Application ]
-- [ 0x08003000 ] : **Application** [[ak-base-kit-stm32l151-application.bin]](https://github.com/ak-embedded-software/ak-base-kit-stm32l151/blob/main/hardware/bin/ak-base-kit-stm32l151-application.bin)                                             |
+The kit integrates a **1.54-inch OLED LCD**, **3 push buttons**, and **a buzzer** for graphics, input, and sound effects. It also provides **RS485**, the **Qwiic Connect System**, and **Grove** connectors for further embedded prototyping.
 
->**Note:** After loading the boot and application firmware, you can use [AK - Flash](https://github.com/ak-embedded-software/ak-flash), a CLI to work with the AK base kit, to load the application directly through the kit's USB port. Once installed, the following command will flash user's defined code into the kit's application's memory region.
+**MCU Overview:**
 
-```sh
-ak_flash /dev/ttyUSB0 ak-base-kit-stm32l151-application.bin 0x08003000
+```text
+SoC Name : STM32L151CBT6
+RAM      : 16 KB
+
+Flash Partitions Layout
+-----------------------
+[ 0x08000000 - 0x08001FFF ] : Bootloader Partition (8 KB)
+=> AK Bootloader
+
+[ 0x08002000 - 0x08002FFF ] : BSF Shared Partition (4 KB)
+=> Data shared between the Bootloader and Application
+
+[ 0x08003000 - 0x0801FFFF ] : Application Partition (116 KB)
+=> Blind Pacman firmware
 ```
 
-## Hardware
+**MCU Naming Convention:**
 
-[AK base kit's schematic](/hardware/schematic/schematic-ak-embedded-base-kit-version-3.pdf)
+| Part | Meaning |
+|---|---|
+| `STM32` | STMicroelectronics 32-bit MCU family. |
+| `L` | Low-power series. |
+| `151` | STM32L151 product line. |
+| `C` | 48-pin package. |
+| `B` | 128 KB Flash memory. |
+| `T` | LQFP package. |
+| `6` | Industrial temperature grade. |
 
-[<img src="hardware/images/board-view-top.png" width="480"/>](<https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu>)
+<table align="center">
+  <tr>
+    <td align="center"><img src="hardware/images/board-view-top-bottom.png" alt="Top and bottom views of the AK Embedded Base Kit" width="900"/></td>
+  </tr>
+</table>
+<p align="center"><strong><em>Figure 2:</em></strong> Board view - Top and Bottom</p>
 
-[<img src="hardware/images/board-view-bottom.png" width="480"/>](https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu)
+### II. Game Description and Objects
 
-## Reference
+Blind Pacman challenges the player to clear the maze as quickly as possible while navigating with limited visibility and avoiding four ghosts.
 
-| Topic | Link |
-| ------ | ------ |
-| Training course | <https://github.com/the-ak-foundation/embedded-training-program> |
-| Tutorials | <https://epcb.vn/blogs/ak-embedded-software> |
-| Vendor | <https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu> |
+The game opens on the **Pacman Menu**, which contains four options:
+
+- **Play Game:** Start a new match.
+- **Settings:** Configure difficulty, sound, and the time limit.
+- **Ranking:** View the three fastest completion times stored in EEPROM.
+- **Exit / QR:** Leave the menu and open the QR screen.
+
+#### Objects in the Game
+
+| Object | Description |
+|---|---|
+| **Pacman** | The player character. Pacman moves continuously in the selected direction and stops only when blocked by a wall. |
+| **Dot** | A collectible placed throughout the maze. Clear every dot and cherry to win. |
+| **Cherry** | A special collectible that temporarily frightens the ghosts, making them move unpredictably and allowing Pacman to send them back to the ghost house on contact. |
+| **Blinky** | Directly targets Pacman's current position. |
+| **Pinky** | Targets a point four tiles ahead of Pacman's current direction. |
+| **Inky** | Calculates a surrounding target using both Pacman's projected position and Blinky's position. |
+| **Clyde** | Chases Pacman from a distance, but retreats toward a maze corner when nearby. |
+| **Maze** | A 16 × 32-tile map containing walls, paths, collectibles, and the central ghost house. The camera follows Pacman vertically. |
+
+### III. How to Play
+
+- Press **[MODE]** on the welcome screen to open the menu.
+- In menus, use **[UP]** and **[DOWN]** to move the cursor, then press **[MODE]** to select.
+- During gameplay, press **[DOWN]** to start moving horizontally or reverse between left and right.
+- Press **[UP]** to start moving vertically or reverse between up and down.
+- Press **[MODE]** during gameplay to return to the main menu.
+- Eat every dot and cherry to win. Complete the maze as quickly as possible to enter the top-three ranking.
+
+#### Game Mechanics
+
+- **Blind vision:** Difficulty controls how much of the maze is visible around Pacman:
+  - **Easy:** the full maze is visible.
+  - **Medium:** objects within a 5-tile Manhattan radius are visible.
+  - **Hard:** objects within a 2-tile Manhattan radius are visible.
+- **Time limit:** The default limit is **40 seconds**. It can be set from **10 to 150 seconds** in 10-second increments, or disabled with **NO**.
+- **Victory:** The match ends successfully after Pacman collects every dot and cherry. The completion time is saved if it belongs in the top three.
+- **Time out:** If the countdown reaches zero before the maze is cleared, the **Game Over** screen is shown.
+- **Ghost collision:** Contact with a normal ghost resets Pacman and all ghosts to their starting positions while the clock continues to run.
+- **Frightened mode:** Eating a cherry temporarily changes all ghosts to a frightened state. Touching a frightened ghost sends it back to the ghost house.
+- **Sound:** Menu feedback, collectibles, victory, and game-over events use the onboard buzzer. Sound can be enabled or disabled in **Settings**.
+- **Persistent data:** Difficulty, sound, time-limit settings, and the three fastest times are stored in EEPROM.
+
+### IV. Basic Game Sequence Logic
+
+https://the-ak-foundation.github.io/akos-docs/

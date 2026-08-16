@@ -135,7 +135,3 @@ The game opens on the **Pacman Menu**, which contains four options:
 - **Frightened mode:** Eating a cherry temporarily changes all ghosts to a frightened state. Touching a frightened ghost sends it back to the ghost house.
 - **Sound:** Menu feedback, collectibles, victory, and game-over events use the onboard buzzer. Sound can be enabled or disabled in **Settings**.
 - **Persistent data:** Difficulty, sound, time-limit settings, and the three fastest times are stored in EEPROM.
-
-### IV. Basic Game Sequence Logic
-
-https://the-ak-foundation.github.io/akos-docs/

@@ -6,16 +6,15 @@
 
 # Blind Pacman - Game built on AK Embedded Base Kit
 
-**Blind Pacman** is a limited-vision Pacman game developed for the STM32L151-based AK Embedded Base Kit. The game runs on the kit's 1.54-inch monochrome OLED and is controlled with only three physical buttons.
+**Blind Pacman** is a limited-vision Pacman game developed for the STM32L151-based AK Embedded Base Kit. The game runs on the kit's 1.54-inch monochrome OLED and is controlled with only three physical buttons
 
 <hr>
 
 ## Gameplay Demo
 
 <div align="center">
-  <video src="hardware/images/blind_pacman_demo.mp4" controls width="480"></video>
+  <video src="https://github.com/user-attachments/assets/0f2fb880-d670-41d3-9716-ef67b981e4bf" controls width="480"></video>
   <br>
-  <a href="hardware/images/blind_pacman_demo.mp4">Blind Pacman Demo</a>
 </div>
 
 ## Documentation
@@ -104,7 +103,7 @@ The game opens on the **Pacman Menu**, which contains four options:
 
 | Object | Description |
 |---|---|
-| **Pacman** | The player character. Pacman moves continuously in the selected direction and stops only when blocked by a wall. |
+| **Pacman** | The player character, Pacman moves continuously in the selected direction and stops only when blocked by a wall. |
 | **Dot** | A collectible placed throughout the maze. Clear every dot and cherry to win. |
 | **Cherry** | A special collectible that temporarily frightens the ghosts, making them move unpredictably and allowing Pacman to send them back to the ghost house on contact. |
 | **Blinky** | Directly targets Pacman's current position. |
